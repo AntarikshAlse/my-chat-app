@@ -42,7 +42,6 @@ const Home = () => {
       } else if (!user)
         alert("Signup successful, confirmation mail should be sent soon!");
     } catch (error) {
-      console.log("error", error);
       alert(error.error_description || error);
     }
   };

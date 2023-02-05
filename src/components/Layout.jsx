@@ -6,7 +6,6 @@ import TrashIcon from "./TrashIcon";
 import { useRouter } from "next/router";
 export default function Layout(props) {
   const { signOut, user, userRoles } = useContext(UserContext);
-  console.log("🚀 ~ file: Layout.jsx:9 ~ Layout ~ user", user);
   const router = useRouter();
   const { id } = router.query;
 

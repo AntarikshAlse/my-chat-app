@@ -102,16 +102,8 @@ export const useStore = (props) => {
 
   // Update when the DM route changes
   useEffect(() => {
-    console.log(
-      "🚀 ~ file: Store.js:100 ~ useStore ~ senderId",
-      props.senderId
-    );
     if (props?.senderId) {
       fetchDMessages(props.senderId, (messages) => {
-        console.log(
-          "🚀 ~ file: Store.js:89 ~ fetchDMessages ~ messages",
-          messages
-        );
         //messages.forEach((x) => users.set(x.reciever_id, x.author));
 
         setDMessages(messages);
@@ -253,7 +245,6 @@ export const fetchDMessages = async (senderId, setState) => {
       .select(`message,sender_id`)
       .or(`reciever_id.eq.${senderId},sender_id.eq.${senderId}`)
       .order("inserted_at", true);
-    console.log("🚀 ~ file: Store.js:231 ~ fetchDMessages ~ data", data);
 
     if (setState) setState(data);
     return data;
