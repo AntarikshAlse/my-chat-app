@@ -102,12 +102,14 @@ export const useStore = (props) => {
 
   // Update when the DM route changes
   useEffect(() => {
-    if (props?.senderId) {
-      fetchDMessages(props.senderId, (messages) => {
-        //messages.forEach((x) => users.set(x.reciever_id, x.author));
-
-        setDMessages(messages);
-      });
+    if (props?.senderId && props?.userId) {
+      fetchDMessages(
+        props.senderId,
+        (messages) => {
+          setDMessages(messages);
+        },
+        props.userId
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.senderId]);
@@ -238,12 +240,14 @@ export const fetchMessages = async (channelId, setState) => {
  * @param {uuid} senderId
  * @param {function} setState Optionally pass in a hook or callback to set the state
  */
-export const fetchDMessages = async (senderId, setState) => {
+export const fetchDMessages = async (senderId, setState, userId) => {
   try {
     let { data } = await supabase
       .from("direct_messages")
       .select(`message,sender_id`)
-      .or(`reciever_id.eq.${senderId},sender_id.eq.${senderId}`)
+      .or(
+        `and(reciever_id.eq.${senderId},sender_id.eq.${userId}),and(sender_id.eq.${senderId},reciever_id.eq.${userId})`
+      )
       .order("inserted_at", true);
 
     if (setState) setState(data);

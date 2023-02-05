@@ -4,13 +4,14 @@ import DirectMessage from "../../components/DirectMessage";
 import MessageInput from "../../components/MessageInput";
 import { useRouter } from "next/router";
 import { useStore, addMessage, addDM } from "../../lib/Store";
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useMemo, useRef } from "react";
 import UserContext from "../../lib/UserContext";
 
 const ChannelsPage = (props) => {
   const router = useRouter();
   const { id } = router.query;
   const { user, authLoaded, signOut } = useContext(UserContext);
+  const userId = useMemo(() => user?.id, [user]);
   const messagesEndRef = useRef(null);
 
   // Else load up the page
@@ -20,7 +21,7 @@ const ChannelsPage = (props) => {
     senderId = channelId;
   }
   const { messages, channels, directMsg } = useStore(
-    senderId ? { senderId } : { channelId }
+    senderId ? { senderId, userId } : { channelId }
   );
   useEffect(() => {
     messagesEndRef.current.scrollIntoView({
