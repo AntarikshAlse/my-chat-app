@@ -3,8 +3,8 @@ import { supabase } from "../lib/Store";
 
 const Home = () => {
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("testuser123@gmail.com");
+  const [password, setPassword] = useState("123456");
   const [openTab, setOpenTab] = useState(1);
   const handleLogin = async (type) => {
     if ((!username || !password || !email) && type === "SIGNUP") {
