@@ -11,7 +11,7 @@ const DirectMessage = ({ message }) => {
           user?.id === message.sender_id
             ? "bg-green-400 ml-5"
             : "border ml-auto mr-5"
-        } rounded rounded-br-3xl pb-2  pl-3 pr-8 pt-3`}
+        } p-2  pr-4 rounded`}
       >
         <p className="">{message.message}</p>
       </div>
